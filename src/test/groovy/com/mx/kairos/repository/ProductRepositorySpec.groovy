@@ -14,7 +14,7 @@ class ProductRepositorySpec extends Specification {
     @Autowired
     ProductRepository productRepository
 
-    def "Should save an product"() {
+    def "Should save a product"() {
 
         given:'a saved product'
 

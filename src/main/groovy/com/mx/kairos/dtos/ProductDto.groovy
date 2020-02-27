@@ -8,8 +8,8 @@ class ProductDto {
     String brand
 
     ProductDto(Product product) {
-        this.id = product.id
         this.name = product.name
         this.brand = product.brand
+        this.id = product.id
     }
 }

@@ -6,5 +6,5 @@ import com.mx.kairos.validators.ProductValidator
 
 interface ProductService {
     ProductDto create(ProductValidator productValidator)
-    Optional<Product> findById(Long id)
+    Optional<Product> optionalFindById(Long id)
 }
