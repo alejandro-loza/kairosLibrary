@@ -60,6 +60,7 @@ dependencies {
   compile "io.opentracing.contrib:opentracing-spring-cloud-starter:0.2.1"
   compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
   testCompile "org.springframework.cloud:spring-cloud-starter-contract-verifier"
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }
 
 

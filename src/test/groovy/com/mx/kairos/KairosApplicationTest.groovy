@@ -7,11 +7,11 @@ import org.codehaus.jackson.map.ObjectMapper
 import org.springframework.mock.web.MockHttpServletResponse
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import com.mx.kairos.controllers.BaseRestController
+import com.mx.kairos.controllers.ProductController
 
-@WebMvcTest(controllers = [BaseRestController])
+@WebMvcTest(controllers = [ProductController])
 
-class BasicApplicationTest extends spock.lang.Specification {
+class KairosApplicationTest extends spock.lang.Specification {
 
   @Autowired
   protected MockMvc mvc

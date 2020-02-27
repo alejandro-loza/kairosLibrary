@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping("/base")
 @RestController
-class BaseRestController {
+class ProductController {
 
-  
   @GetMapping
   ResponseEntity hello() {
     new ResponseEntity<>(["message":"hello microservices"], HttpStatus.OK)
