@@ -1,0 +1,112 @@
+import org.springframework.cloud.contract.verifier.config.TestFramework
+
+buildscript {
+  ext {
+    springBootVersion = '2.1.4.RELEASE'
+    springCloudContractVersion = '2.1.1.RELEASE'
+  }
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+  
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3'
+    classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
+    classpath 'org.ajoberstar:gradle-git:1.3.2'
+    classpath 'org.kordamp.gradle:stats-gradle-plugin:0.2.0'
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
+    classpath 'net.nemerosa:versioning:2.1.0'
+    classpath "io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE"
+    classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${springCloudContractVersion}"
+  }
+}
+
+plugins {
+  id 'groovy'
+  id "org.sonarqube" version "2.6"
+}
+
+apply from: 'gradle/code-coverage.gradle'
+apply from: 'gradle/code-quality.gradle'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'spring-cloud-contract'
+apply plugin: 'maven-publish'
+
+dependencyManagement {
+  imports {
+    mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:${springCloudContractVersion}"
+  }
+}
+
+group = 'com.mx.kairos'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+  mavenCentral()
+  maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+  implementation "org.codehaus.groovy:groovy-all:2.4.15"
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  
+  testCompile "org.spockframework:spock-spring:1.1-groovy-2.4"
+  testCompile "org.spockframework:spock-core:1.2-groovy-2.4"
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  
+  
+  compile "io.opentracing.contrib:opentracing-spring-cloud-starter:0.2.1"
+  compile "io.jaegertracing:jaeger-tracerresolver:0.29.0"
+  compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+  testCompile "org.springframework.cloud:spring-cloud-starter-contract-verifier"
+}
+
+
+jacocoTestReport {
+  reports {
+    xml.enabled false
+    csv.enabled false
+    html.destination file("${buildDir}/jacocoHtml")
+  }
+  afterEvaluate {
+    classDirectories = files(classDirectories.files.collect {
+      fileTree(dir: it, exclude: [
+        '**/KairosAPi.*',
+        'com/mx/kairos/config'
+      ])
+    })
+  }
+}
+
+jacocoTestCoverageVerification {
+  violationRules {
+	rule {
+	  element = 'CLASS'
+		limit {
+		  counter = 'LINE'
+			value = 'COVEREDRATIO'
+			minimum = 0.8
+		}
+	  excludes = [
+		'com.mx.kairos.KairosAPi',
+		'com.mx.kairos.config'
+	  ]
+	}
+  }
+}
+
+test.finalizedBy jacocoTestReport
+
+contracts {
+  packageWithBaseClasses = 'com.mx.kairos'
+  baseClassMappings {
+    baseClassMapping( '.*.',"com.mx.kairos.BaseRestContract")
+  }
+  testFramework = TestFramework.SPOCK
+}
+
