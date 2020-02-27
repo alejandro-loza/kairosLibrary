@@ -1,5 +1,3 @@
-import org.springframework.cloud.contract.verifier.config.TestFramework
-
 buildscript {
   ext {
     springBootVersion = '2.1.4.RELEASE'
@@ -58,10 +56,8 @@ dependencies {
   testCompile "org.spockframework:spock-spring:1.1-groovy-2.4"
   testCompile "org.spockframework:spock-core:1.2-groovy-2.4"
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
-  
-  
+
   compile "io.opentracing.contrib:opentracing-spring-cloud-starter:0.2.1"
-  compile "io.jaegertracing:jaeger-tracerresolver:0.29.0"
   compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
   testCompile "org.springframework.cloud:spring-cloud-starter-contract-verifier"
 }
@@ -107,6 +103,5 @@ contracts {
   baseClassMappings {
     baseClassMapping( '.*.',"com.mx.kairos.BaseRestContract")
   }
-  testFramework = TestFramework.SPOCK
-}
+  testFramework = 'SPOCK'}
 
