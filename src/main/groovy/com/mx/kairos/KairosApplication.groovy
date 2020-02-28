@@ -5,12 +5,12 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class BasicApplication {
+class KairosApplication {
     @Value('${spring.application.name}')
     private String applicationName
 
 	static void main(String[] args) {
-		SpringApplication.run(BasicApplication, args)
+		SpringApplication.run(KairosApplication, args)
 	}
 
 }
