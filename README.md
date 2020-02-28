@@ -1,127 +1,64 @@
-# kairosAPi
+# Requisitos previos
 
-Description of your project
+Antes que nada debes instalar gradle, este proyecto usa gradle en lugar de maven a continuación tienes el link https://gradle.org/
+ 
 
-  - Example 1
-  - Example 2
-  - Example 3
+# Caracteristicas!
 
-# New Features!
+  -Esta desarrollado en groovy http://groovy-lang.org/ la sintaxis no es muy distinta a java
+  -Usa test unitarios escritos en junit y spock
 
-  - Example 1 in version 0.0.1
-  
-You can also:
-  - example 1 "Import and save files from GitHub, Dropbox, Google Drive and One Drive"
-
-### Tech
+### Tecnologìas usadas
 
 * [Spring boot 2.1.3](https://spring.io/projects/spring-boot) - Spring based application with embeded tomcat server
 
 * [Groovy 2.4.15](http://groovy-lang.org/) - Programming Language
 * [Spock](http://spockframework.org/) - Testing framework 
-* [Jaeger](https://www.jaegertracing.io/) - Tracing 
 * [Jacoco](https://www.jacoco.org/jacoco/trunk/doc/) - Code coverage framework validator
-* [Codenarc](https://www.jaegertracing.io/) - Code style framework validator
+* [Swagger](https://swagger.io/) - Documentation 
 
 
-### Basic Installation
+## Uso
 
-kairosAPi need installed [Docker](https://docs.docker.com/install/)
-Dillinger requires [Node.js](https://nodejs.org/) v4+ to run.
-
-Install the dependencies and devDependencies and start the server.
+###Iniciar el API.
 
 ```sh
-$ cd dilli
-$ npm install -d
-$ node app
+$ cd kairosApi
+$ ./gradlew clean bootRun   
 ```
+Podrás verificar el api en el siguiente url http://localhost:8080/api/v1/products/ toma en cuenta que deberás usar algún cliente 
 
-For production environments...
+###Documentación del API
+Verifica la documentación del API en swagger, tambièn podrás utilizar el cliente web de swagger para probar los endpoints
+```sh 
+ http://localhost:8080/api/v1/swagger-ui.html
+```
+###Correr los test
 
 ```sh
-$ npm install --production
-$ NODE_ENV=production node app
+$ ./gradlew clean 
+$ ./gradlew clean test
 ```
-
-### Plugins
-
-Dillinger is currently extended with the following plugins. Instructions on how to use them in your own application are linked below.
-
-| Plugin | README |
-| ------ | ------ |
-| Dropbox | [plugins/dropbox/README.md][PlDb] |
-| Github | [plugins/github/README.md][PlGh] |
-| Google Drive | [plugins/googledrive/README.md][PlGd] |
-| OneDrive | [plugins/onedrive/README.md][PlOd] |
-| Medium | [plugins/medium/README.md][PlMe] |
-| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
-
-
-### Development
-
-Want to contribute? Great!
-
-Dillinger uses Gulp + Webpack for fast developing.
-Make a change in your file and instantanously see your updates!
-
-Open your favorite Terminal and run these commands.
-
-First Tab:
-```sh
-$ node app
-```
-
-Second Tab:
-```sh
-$ gulp watch
-```
-
-(optional) Third:
-```sh
-$ karma test
-```
-#### Building for source
-For production release:
-```sh
-$ gulp build --prod
-```
-Generating pre-built zip archives for distribution:
-```sh
-$ gulp build dist --prod
-```
-### Docker
-Dillinger is very easy to install and deploy in a Docker container.
-
-By default, the Docker will expose port 8080, so change this within the Dockerfile if necessary. When ready, simply use the Dockerfile to build the image.
+Podrás visualizar el resultado de los mismos en cualquier browser en la siguiente dirección:
 
 ```sh
-cd dillinger
-docker build -t joemccann/dillinger:${package.json.version} .
+http://localhost:63342/kairosAPi/build/reports/tests/test/index.html
 ```
-This will create the dillinger image and pull in the necessary dependencies. Be sure to swap out `${package.json.version}` with the actual version of Dillinger.
+O en su defecto se encontrara el archivo html en kairosApi/build/reports/tests/test/index.html
 
-Once done, run the Docker image and map the port to whatever you wish on your host. In this example, we simply map port 8000 of the host to port 8080 of the Docker (or whatever port was exposed in the Dockerfile):
-
+Para revisar el coverage de los test
 ```sh
-docker run -d -p 8000:8080 --restart="always" <youruser>/dillinger:${package.json.version}
+http://localhost:63342/kairosAPi/build/reports/tests/test/index.html
 ```
+O en su defecto podrás encontrar el archivo html en kairosApi/build/jacocoHtml/index.html
 
-Verify the deployment by navigating to your server address in your preferred browser.
 
+
+###Actuator
+Para revisar trasa metricas healtcheck revisa
 ```sh
-127.0.0.1:8000
+http://localhost:8080/api/v1/actuator
 ```
-
-#### Kubernetes + Google Cloud
-
-See [KUBERNETES.md](https://github.com/joemccann/dillinger/blob/master/KUBERNETES.md)
-
-
-### Todos
-
- - Write MORE Tests
- - Add Night Mode
 
 License
 ----
