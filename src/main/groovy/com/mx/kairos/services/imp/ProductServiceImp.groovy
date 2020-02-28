@@ -22,8 +22,7 @@ class ProductServiceImp implements ProductService {
             name = productValidator.name
             brand = productValidator.brand
         }
-        def response = productRepository.save(product)
-        new ProductDto(response)
+        new ProductDto(productRepository.save(product))
     }
 
     @Override
@@ -33,8 +32,7 @@ class ProductServiceImp implements ProductService {
             name = productValidator.name
             brand = productValidator.brand
         }
-        def response = productRepository.save(product)
-        new ProductDto(response)
+        new ProductDto(productRepository.save(product))
     }
 
     @Override
