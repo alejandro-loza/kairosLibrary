@@ -8,21 +8,20 @@ import org.springframework.mock.web.MockHttpServletResponse
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import com.mx.kairos.controllers.ProductController
+import spock.lang.Specification
 
 @WebMvcTest(controllers = [ProductController])
-
-class KairosApplicationTest extends spock.lang.Specification {
+class KairosApplicationTest extends Specification {
 
   @Autowired
   protected MockMvc mvc
-  
 
   def "Should do a request"() {
     setup:
     ObjectMapper mapper = new ObjectMapper()
     when:
     def response = mvc
-        .perform(MockMvcRequestBuilders.get("/base")
+        .perform(MockMvcRequestBuilders.get("/products")
 
     ).andReturn().response
     then:
